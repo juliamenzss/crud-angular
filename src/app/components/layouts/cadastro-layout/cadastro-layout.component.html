@@ -1,0 +1,63 @@
+<form [formGroup]="cadastroForm" (ngSubmit)="salvar()" class="cadastro-form">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Dados Pessoais</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="form-row">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Nome: </mat-label>
+                    <input matInput type="text" name="nome" formControlName="nome" placeholder="Digite seu nome" />
+                </mat-form-field>
+            </div>
+            <div class="form-row">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Email: </mat-label>
+                    <input matInput type="email" name="email" formControlName="email" placeholder="Digite seu email" />
+                </mat-form-field>
+            </div>
+            <div class="form-row">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>CPF: </mat-label>
+                    <input matInput type="text" name="cpf" mask="000.000.000-00" formControlName="cpf" placeholder="Digite seu CPF" />
+                </mat-form-field>
+            </div>
+            <div class="form-row">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Data de Nascimento: </mat-label>
+                    <input matInput type="text" name="dataNascimento" mask="00/00/0000" formControlName="dataNascimento" placeholder="Digite sua data de Nascimento" />
+                </mat-form-field>
+            </div>
+            <div class="form-row">
+                <mat-form-field appearance="fill" 
+                class="full-width">
+                    <mat-label>UF: </mat-label>
+                    <mat-select 
+                    [(value)]="cliente.uf" (selectionChange)="carregarMunicipios($event)">
+                        <mat-option *ngFor="let uf of estados" [value]="uf.sigla">{{ uf.sigla }}</mat-option>
+                      </mat-select>
+                </mat-form-field>
+            </div>
+                <div class="form-row">
+                    <mat-form-field appearance="fill" 
+                    class="full-width">
+                        <mat-label>Município: </mat-label>
+                        <mat-select
+                        [(value)]="cliente.municipio" >
+                            <mat-option *ngFor="let m of municipios" [value]="m.nome">{{ m.nome }}</mat-option>
+                          </mat-select>
+                    </mat-form-field>
+                </div>
+        </mat-card-content>
+        <mat-card-actions class="button">
+            @if(!atualizando){
+                <button mat-flat-button color="primary" type="submit"><mat-icon>save</mat-icon>Salvar</button>
+            } @else {
+                <button  mat-flat-button color="primary" fontIcon="refresh" type="button" (click)="salvar()"> <mat-icon>refresh</mat-icon>Atualizar</button>
+            }
+            <div class="button-clean">
+                <button mat-flat-button color="accent" fontIcon="backspace" type="button" (click)="limparCampos()"> <mat-icon>backspace</mat-icon>Limpar</button>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+</form>
